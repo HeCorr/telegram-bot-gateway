@@ -11,7 +11,7 @@ func main() {
 	flag.Parse()
 
 	if *botsFile == "" {
-		fmt.Println("No bots.yml file found. Please create one.")
+		fmt.Println("Default bots.yml file not found. Please create it or specify one with -f.")
 		os.Exit(1)
 	}
 }
