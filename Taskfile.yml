@@ -1,0 +1,25 @@
+# https://taskfile.dev
+
+version: '3'
+
+silent: true
+
+tasks:
+  build:
+    cmds:
+      - go build -o ./bin/gateway{{exeExt}} ./src
+  run:
+    cmds:
+      - task: build
+      - ./bin/gateway{{exeExt}}
+  buildbot:
+    cmds:
+      - go build -o ./bin/server{{exeExt}} ./test-server/
+  bot1:
+    cmds:
+      - task: buildbot
+      - ./bin/server{{exeExt}} -p 9800
+  bot2:
+    cmds:
+      - task: buildbot
+      - ./bin/server{{exeExt}} -p 9801
