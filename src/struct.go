@@ -9,3 +9,10 @@ type Bot struct {
 type Bots struct {
 	Bots []Bot `yaml:"bots"`
 }
+
+// Prefixes Endpoint with a / if necessary
+func (b *Bot) NormalizeEndpoint() {
+	if b.Endpoint[0] != '/' {
+		b.Endpoint = "/" + b.Endpoint
+	}
+}
