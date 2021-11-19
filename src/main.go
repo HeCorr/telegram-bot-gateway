@@ -36,6 +36,6 @@ func main() {
 	fmt.Println("Loaded routes:")
 
 	for _, b := range botsData.Bots {
-		fmt.Printf("  %"+strconv.Itoa(namePd)+"s: %-"+strconv.Itoa(endpointPd)+"s -> %s\n", b.Name, b.Endpoint, b.Path)
+		fmt.Printf("    %"+strconv.Itoa(namePd)+"s: %-"+strconv.Itoa(endpointPd)+"s -> %s\n", b.Name, b.Endpoint, b.Path)
 	}
 }
