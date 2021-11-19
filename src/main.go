@@ -12,7 +12,7 @@ import (
 
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
-	listenAddr := flag.String("l", ":9000", "Listen address")
+	listenAddr := flag.String("l", ":8443", "Listen address")
 	flag.Parse()
 
 	if *botsFile == "" {
