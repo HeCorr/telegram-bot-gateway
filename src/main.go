@@ -11,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -42,6 +43,11 @@ func main() {
 
 	e := echo.New()
 	e.HideBanner = true
+
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format:           "[${time_custom}] ${remote_ip} -> ${path} [${status}] (${latency_human})\n",
+		CustomTimeFormat: "2006-01-02 15:04:05",
+	}))
 
 	fmt.Println("Loading routes...")
 
