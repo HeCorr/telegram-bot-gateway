@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"os"
+	"strconv"
 
 	"gopkg.in/yaml.v2"
 )
@@ -44,5 +45,13 @@ func readBotsFile(f string) (bots Bots, _ error) {
 		return bots, err
 	}
 	err = yaml.Unmarshal(data, &bots)
-	return bots, err
+	if err != nil {
+		return bots, err
+	}
+	for i := 0; i < len(bots.Bots); i++ {
+		if bots.Bots[i].Name == "" {
+			bots.Bots[i].Name = "Bot " + strconv.Itoa(i+1)
+		}
+	}
+	return bots, nil
 }
