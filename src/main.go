@@ -3,8 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -38,4 +41,16 @@ func main() {
 	for _, b := range botsData.Bots {
 		fmt.Printf("    %"+strconv.Itoa(namePd)+"s: %-"+strconv.Itoa(endpointPd)+"s -> %s\n", b.Name, b.Endpoint, b.Path)
 	}
+}
+
+func registerRoute(e *echo.Echo, endpoint string, path string) {
+	e.POST(endpoint, func(c echo.Context) error {
+		resp, err := http.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
+		if err != nil {
+			// TODO: improve logging
+			fmt.Println(err)
+			return c.NoContent(http.StatusInternalServerError)
+		}
+		return c.NoContent(resp.StatusCode)
+	})
 }
