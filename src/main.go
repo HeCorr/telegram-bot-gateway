@@ -76,7 +76,7 @@ func registerRoute(e *echo.Echo, endpoint string, path string) {
 		if err != nil {
 			// TODO: improve logging
 			fmt.Println(err)
-			return c.NoContent(http.StatusInternalServerError)
+			return c.NoContent(http.StatusGatewayTimeout)
 		}
 		return c.NoContent(resp.StatusCode)
 	})
