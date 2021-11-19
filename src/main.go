@@ -37,9 +37,16 @@ func main() {
 	}
 
 	fmt.Println("Loaded routes:")
+	e := echo.New()
+	e.HideBanner = true
+
 
 	for _, b := range botsData.Bots {
 		fmt.Printf("    %"+strconv.Itoa(namePd)+"s: %-"+strconv.Itoa(endpointPd)+"s -> %s\n", b.Name, b.Endpoint, b.Path)
+	}
+
+	if err = e.Start(":9000"); err != nil {
+		fmt.Println(err)
 	}
 }
 
