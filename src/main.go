@@ -36,13 +36,15 @@ func main() {
 		}
 	}
 
-	fmt.Println("Loaded routes:")
 	e := echo.New()
 	e.HideBanner = true
 
+	fmt.Println("Loading routes...")
 
 	for _, b := range botsData.Bots {
+		b.NormalizeEndpoint()
 		fmt.Printf("    %"+strconv.Itoa(namePd)+"s: %-"+strconv.Itoa(endpointPd)+"s -> %s\n", b.Name, b.Endpoint, b.Path)
+		registerRoute(e, b.Endpoint, b.Path)
 	}
 
 	if err = e.Start(":9000"); err != nil {
