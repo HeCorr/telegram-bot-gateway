@@ -1,10 +1,13 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
@@ -48,8 +51,22 @@ func main() {
 		registerRoute(e, b.Endpoint, b.Path)
 	}
 
-	if err = e.Start(*listenAddr); err != nil {
-		fmt.Println(err)
+	go func() {
+		err := e.Start(*listenAddr)
+		if err != nil && !errors.Is(err, http.ErrServerClosed) {
+			fmt.Println("Server start failed:", err)
+			os.Exit(1)
+		}
+	}()
+
+	exitChan := make(chan os.Signal, 1)
+	signal.Notify(exitChan, os.Interrupt)
+
+	<-exitChan
+	fmt.Println("Interrupt received, stopping webserver...")
+	// TODO: implement pressing Ctrl + C again for forcing exit
+	if err = e.Shutdown(context.Background()); err != nil {
+		fmt.Println("Server shutdown failed:", err)
 	}
 }
 
