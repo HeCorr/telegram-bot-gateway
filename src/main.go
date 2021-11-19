@@ -12,6 +12,7 @@ import (
 
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
+	listenAddr := flag.String("l", ":9000", "Listen address")
 	flag.Parse()
 
 	if *botsFile == "" {
@@ -47,7 +48,7 @@ func main() {
 		registerRoute(e, b.Endpoint, b.Path)
 	}
 
-	if err = e.Start(":9000"); err != nil {
+	if err = e.Start(*listenAddr); err != nil {
 		fmt.Println(err)
 	}
 }
