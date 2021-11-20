@@ -39,3 +39,13 @@ bots:
 ```
 
 Note: Don't enable Strict mode when running this behind a proxy and try disabling it if you're having issues receiving updates.
+
+### TODO
+- [ ] Improve logging
+- [ ] Add comments to the code
+- [ ] Allow specifying options in the `bots.yaml` file
+- [ ] Improve HTTP client (set proper timeouts, ignore certs, etc)
+- [ ] Implement `--init` flag for generating sample `bots.yaml` file
+- [ ] Improve non-Telegram IP blocking middleware
+- [ ] Support JSON config files
+- [ ] Auto reload..?
