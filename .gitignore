@@ -1,2 +1,7 @@
 .vscode/
 bin/
+
+*.yml
+*.yaml
+*.crt
+*.key
