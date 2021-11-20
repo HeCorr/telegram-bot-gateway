@@ -77,7 +77,7 @@ func main() {
 	}
 
 	go func() {
-		err := e.Start(*listenAddr)
+		err := e.StartTLS(*listenAddr, *certFile, *keyFile)
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
 			fmt.Println("Server start failed:", err)
 			os.Exit(1)
