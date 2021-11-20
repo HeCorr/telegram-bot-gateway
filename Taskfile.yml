@@ -4,6 +4,10 @@ version: '3'
 
 silent: true
 
+# NOTE: these tasks are mostly for testing purposes and
+# might not work properly in production. Manually building
+# the service with the `go build` command is recommended.
+
 tasks:
   build:
     cmds:
