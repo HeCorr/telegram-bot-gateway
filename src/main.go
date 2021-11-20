@@ -17,9 +17,21 @@ import (
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
 	listenAddr := flag.String("l", "localhost:8443", "Listen address")
+	keyFile := flag.String("k", "", "Private key file for HTTPS")
+	certFile := flag.String("c", "", "Certificate file for HTTPS")
 	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
 
 	flag.Parse()
+
+	if *keyFile == "" {
+		fmt.Println("Private key file not specified. Please specify it with the -k flag.")
+		os.Exit(1)
+	}
+
+	if *certFile == "" {
+		fmt.Println("Certificate file not specified. Please specify it with the -c flag.")
+		os.Exit(1)
+	}
 
 	if *botsFile == "" {
 		fmt.Println("Default bots.yml file not found. Please create it or specify one with -f.")
