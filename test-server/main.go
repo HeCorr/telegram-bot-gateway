@@ -24,5 +24,5 @@ func main() {
 		return nil
 	})
 
-	fmt.Println(e.Start(":" + *port))
+	fmt.Println(e.Start("localhost:" + *port))
 }
