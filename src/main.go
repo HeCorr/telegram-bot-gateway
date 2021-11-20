@@ -34,7 +34,7 @@ func main() {
 	}
 
 	if *botsFile == "" {
-		fmt.Println("Default bots.yml file not found. Please create it or specify one with -f.")
+		fmt.Println("Default bots.yaml file not found. Please create it or specify one with -f.")
 		os.Exit(1)
 	}
 

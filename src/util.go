@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	defaultBotsFiles = []string{"bots.yml", "bots.yaml"}
+	defaultBotsFiles = []string{"bots.yaml", "bots.yml"}
 )
 
 // Checks if file f exists and is not a directory
@@ -31,8 +31,8 @@ func fileExists(f string) bool {
 }
 
 // Looks for the default bots file (in the current path) in the following order:
-// - bots.yml
 // - bots.yaml
+// - bots.yml
 func findBotsFile() string {
 	for _, f := range defaultBotsFiles {
 		if fileExists(f) {
