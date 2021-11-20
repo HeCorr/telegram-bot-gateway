@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"errors"
 	"flag"
 	"fmt"
@@ -9,10 +10,26 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
+
+var client *http.Client
+
+func init() {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			// don't verify certificates
+			InsecureSkipVerify: true,
+		},
+	}
+	client = &http.Client{
+		Transport: tr,
+		Timeout:   time.Second * 5,
+	}
+}
 
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
@@ -97,7 +114,7 @@ func main() {
 
 func registerRoute(e *echo.Echo, endpoint string, path string) {
 	e.POST(endpoint, func(c echo.Context) error {
-		resp, err := http.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
+		resp, err := client.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
 		if err != nil {
 			// TODO: improve logging
 			fmt.Println(err)
