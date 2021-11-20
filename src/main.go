@@ -17,6 +17,8 @@ import (
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
 	listenAddr := flag.String("l", "localhost:8443", "Listen address")
+	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
+
 	flag.Parse()
 
 	if *botsFile == "" {
@@ -48,6 +50,11 @@ func main() {
 		Format:           "[${time_custom}] ${remote_ip} -> ${path} [${status}] (${latency_human})\n",
 		CustomTimeFormat: "2006-01-02 15:04:05",
 	}))
+
+	if *strict {
+		fmt.Println("Strict mode enabled!")
+		e.Use(telegramIPMiddleware)
+	}
 
 	fmt.Println("Loading routes...")
 
