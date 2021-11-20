@@ -19,11 +19,10 @@ import (
 var client *http.Client
 
 func init() {
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			// don't verify certificates
-			InsecureSkipVerify: true,
-		},
+	tr := http.DefaultTransport.(*http.Transport).Clone()
+	tr.TLSClientConfig = &tls.Config{
+		// don't verify certificates
+		InsecureSkipVerify: true,
 	}
 	client = &http.Client{
 		Transport: tr,
