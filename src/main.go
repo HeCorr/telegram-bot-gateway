@@ -17,8 +17,8 @@ import (
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
 	listenAddr := flag.String("l", "localhost:8443", "Listen address")
-	keyFile := flag.String("k", "", "Private key file for HTTPS")
-	certFile := flag.String("c", "", "Certificate file for HTTPS")
+	certFile := flag.String("c", "", "Certificate file for HTTPS (required)")
+	keyFile := flag.String("k", "", "Private key file for HTTPS (required)")
 	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
 
 	flag.Parse()
