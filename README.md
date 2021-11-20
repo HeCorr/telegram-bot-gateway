@@ -4,7 +4,7 @@ A simple but fast webhook reverse proxy written in Go that allows you to run mul
 ## Usage
 
 ### Running from the pre-built binaries
-- Download the latest binary version for your system and skip to the **Running it** section below.
+- Download the [latest](https://github.com/HeCorr/telegram-bot-gateway/releases/latest) binary version for your system and skip to the **Running it** section below.
 
 ### Building from source
 1. Make sure you have [Go](https://golang.org/doc/install#download) installed (at least v1.16)
