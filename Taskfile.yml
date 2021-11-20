@@ -11,7 +11,7 @@ tasks:
   run:
     cmds:
       - task: build
-      - ./bin/gateway{{exeExt}}
+      - ./bin/gateway{{exeExt}} -c tbg.crt -k tbg.key
   buildbot:
     cmds:
       - go build -o ./bin/server{{exeExt}} ./test-server/
