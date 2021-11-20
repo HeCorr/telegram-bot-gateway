@@ -1,10 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"errors"
+	"fmt"
+	"net"
 	"os"
 	"strconv"
 
+	"github.com/apparentlymart/go-cidr/cidr"
 	"gopkg.in/yaml.v2"
 )
 
@@ -54,4 +58,20 @@ func readBotsFile(f string) (bots Bots, _ error) {
 		}
 	}
 	return bots, nil
+}
+
+func ipInCIDR(IP, CIDR string) (bool, error) {
+	ip := net.ParseIP(IP).To4()
+	if ip == nil {
+		return false, fmt.Errorf("parse %s: invalid ipv4", IP)
+	}
+	_, network, err := net.ParseCIDR(CIDR)
+	if err != nil {
+		return false, err
+	}
+	start, end := cidr.AddressRange(network)
+	if bytes.Compare(ip, start) >= 0 && bytes.Compare(ip, end) <= 0 {
+		return true, nil
+	}
+	return false, nil
 }
