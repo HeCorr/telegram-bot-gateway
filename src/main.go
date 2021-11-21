@@ -119,6 +119,7 @@ func registerRoute(e *echo.Echo, endpoint string, path string) {
 			fmt.Println(err)
 			return c.NoContent(http.StatusGatewayTimeout)
 		}
+		defer resp.Body.Close()
 		return c.NoContent(resp.StatusCode)
 	})
 }
