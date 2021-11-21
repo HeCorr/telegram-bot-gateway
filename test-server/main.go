@@ -24,5 +24,5 @@ func main() {
 		return nil
 	})
 
-	fmt.Println(e.Start("localhost:" + *port))
+	fmt.Println(e.StartTLS("localhost:"+*port, "tbg.crt", "tbg.key"))
 }
