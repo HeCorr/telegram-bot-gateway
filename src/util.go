@@ -5,10 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"strconv"
 
 	"github.com/apparentlymart/go-cidr/cidr"
+	"github.com/labstack/echo/v4"
 	"gopkg.in/yaml.v2"
 )
 
@@ -75,4 +77,18 @@ func ipInCIDR(IP, CIDR string) (bool, error) {
 		return true, nil
 	}
 	return false, nil
+}
+
+// Register route which forwards requests from endpoint to path
+func registerRoute(e *echo.Echo, endpoint string, path string) {
+	e.POST(endpoint, func(c echo.Context) error {
+		resp, err := client.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
+		if err != nil {
+			// TODO: improve logging
+			fmt.Println(err)
+			return c.NoContent(http.StatusGatewayTimeout)
+		}
+		defer resp.Body.Close()
+		return c.NoContent(resp.StatusCode)
+	})
 }

@@ -112,17 +112,3 @@ func main() {
 		fmt.Println("Server shutdown failed:", err)
 	}
 }
-
-// Register route which forwards requests from endpoint to path
-func registerRoute(e *echo.Echo, endpoint string, path string) {
-	e.POST(endpoint, func(c echo.Context) error {
-		resp, err := client.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
-		if err != nil {
-			// TODO: improve logging
-			fmt.Println(err)
-			return c.NoContent(http.StatusGatewayTimeout)
-		}
-		defer resp.Body.Close()
-		return c.NoContent(resp.StatusCode)
-	})
-}
