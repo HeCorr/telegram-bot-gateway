@@ -60,6 +60,7 @@ func readBotsFile(f string) (bots Bots, _ error) {
 	return bots, nil
 }
 
+// Checks if CIDR contains IP
 func ipInCIDR(IP, CIDR string) (bool, error) {
 	ip := net.ParseIP(IP).To4()
 	if ip == nil {

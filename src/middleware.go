@@ -9,6 +9,7 @@ import (
 
 var telegramCIDRs = []string{"149.154.160.0/20", "91.108.4.0/22"}
 
+// Middleware that blocks requests not coming from Telegram servers
 func telegramIPMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		for _, cidr := range telegramCIDRs {

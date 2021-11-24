@@ -19,6 +19,7 @@ import (
 var client *http.Client
 
 func init() {
+	// clone default transport to keep default settings
 	tr := http.DefaultTransport.(*http.Transport).Clone()
 	tr.TLSClientConfig = &tls.Config{
 		// don't verify certificates
@@ -60,7 +61,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	// calculate dynamic paddings based on the longest values
+	// calculate dynamic padding based on the longest values
 	var namePd, endpointPd int
 	for _, b := range botsData.Bots {
 		if namePd < len(b.Name) {
@@ -100,6 +101,7 @@ func main() {
 		}
 	}()
 
+	// Ctrl + C handling
 	exitChan := make(chan os.Signal, 1)
 	signal.Notify(exitChan, os.Interrupt)
 
@@ -111,6 +113,7 @@ func main() {
 	}
 }
 
+// Register route which forwards requests from endpoint to path
 func registerRoute(e *echo.Echo, endpoint string, path string) {
 	e.POST(endpoint, func(c echo.Context) error {
 		resp, err := client.Post(path, c.Request().Header.Get("Content-Type"), c.Request().Body)
