@@ -37,8 +37,18 @@ func main() {
 	certFile := flag.String("c", "", "Certificate file for HTTPS (required)")
 	keyFile := flag.String("k", "", "Private key file for HTTPS (required)")
 	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
+	init := flag.Bool("i", false, "Initialize (create) example bots.yaml file")
 
 	flag.Parse()
+
+	if *init {
+		if err := initBotsFile(); err != nil {
+			fmt.Printf("Failed to initialize bots.yaml file: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println("Example bots.yaml file successfuly created! Please edit it and run again")
+		os.Exit(0)
+	}
 
 	if *keyFile == "" {
 		fmt.Println("Private key file not specified. Please specify it with the -k flag.")
