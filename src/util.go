@@ -62,6 +62,14 @@ func readBotsFile(f string) (bots Bots, _ error) {
 	return bots, nil
 }
 
+// Creates a pre-configured (example) bots.yaml file
+func initBotsFile() error {
+	if fileExists("bots.yaml") {
+		return fmt.Errorf("file bots.yaml already exists. please delete it and try again")
+	}
+	return os.WriteFile("bots.yaml", []byte("bots:\n  - name: Bot One\n    endpoint: /bot1\n    path: https://localhost:3000/bot\n  - name: Bot Two\n    endpoint: /bot2\n    path: https://localhost:3001/bot"), os.ModePerm)
+}
+
 // Checks if CIDR contains IP
 func ipInCIDR(IP, CIDR string) (bool, error) {
 	ip := net.ParseIP(IP).To4()
