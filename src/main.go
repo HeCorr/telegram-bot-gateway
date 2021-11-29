@@ -50,16 +50,6 @@ func main() {
 		os.Exit(0)
 	}
 
-	if *keyFile == "" {
-		fmt.Println("Private key file not specified. Please specify it with the -k flag.")
-		os.Exit(1)
-	}
-
-	if *certFile == "" {
-		fmt.Println("Certificate file not specified. Please specify it with the -c flag.")
-		os.Exit(1)
-	}
-
 	if *botsFile == "" {
 		fmt.Println("Default bots.yaml file not found. Please create it or specify one with -f.")
 		os.Exit(1)
@@ -69,6 +59,22 @@ func main() {
 	if err != nil {
 		fmt.Printf("Failed to load bots file: %v", err)
 		os.Exit(1)
+	}
+
+	if *keyFile == "" {
+		if botsData.Options.Key == "" {
+			fmt.Println("Private key file not specified. Please specify it with the -k flag.")
+			os.Exit(1)
+		}
+		*keyFile = botsData.Options.Key
+	}
+
+	if *certFile == "" {
+		if botsData.Options.Cert == "" {
+			fmt.Println("Certificate file not specified. Please specify it with the -c flag.")
+			os.Exit(1)
+		}
+		*certFile = botsData.Options.Cert
 	}
 
 	// calculate dynamic padding based on the longest values
