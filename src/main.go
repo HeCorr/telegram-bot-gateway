@@ -85,6 +85,10 @@ func main() {
 	e := echo.New()
 	e.HideBanner = true
 
+	// https://echo.labstack.com/guide/ip-address/
+	// TODO: add setting for controlling this
+	e.IPExtractor = echo.ExtractIPDirect()
+
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format:           "[${time_custom}] ${remote_ip} -> ${path} [${status}] (${latency_human})\n",
 		CustomTimeFormat: "2006-01-02 15:04:05",
