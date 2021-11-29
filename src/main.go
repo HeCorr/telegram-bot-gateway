@@ -33,7 +33,7 @@ func init() {
 
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
-	listenAddr := flag.String("l", "localhost:8443", "Listen address")
+	listenAddr := flag.String("l", "", "Listen address (default \"localhost:8443\")")
 	certFile := flag.String("c", "", "Certificate file for HTTPS (required)")
 	keyFile := flag.String("k", "", "Private key file for HTTPS (required)")
 	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
@@ -75,6 +75,14 @@ func main() {
 			os.Exit(1)
 		}
 		*certFile = botsData.Options.Cert
+	}
+
+	if *listenAddr == "" {
+		if botsData.Options.Listen == "" {
+			*listenAddr = "localhost:8443"
+		} else {
+			*listenAddr = botsData.Options.Listen
+		}
 	}
 
 	// calculate dynamic padding based on the longest values
