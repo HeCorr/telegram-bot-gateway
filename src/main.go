@@ -46,12 +46,12 @@ func main() {
 			fmt.Printf("Failed to initialize bots.yaml file: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Println("Example bots.yaml file successfuly created! Please edit it and run again")
+		fmt.Println("Example bots.yaml file successfuly created! Please edit it and run again.")
 		os.Exit(0)
 	}
 
 	if *botsFile == "" {
-		fmt.Println("Default bots.yaml file not found. Please create it or specify one with -f.")
+		fmt.Println("Default bots.yaml file not found. Please create it with -i or specify one with -f.")
 		os.Exit(1)
 	}
 
