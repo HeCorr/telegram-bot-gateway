@@ -34,8 +34,8 @@ func init() {
 func main() {
 	botsFile := flag.String("f", findBotsFile(), "Use the specified .yaml file")
 	listenAddr := flag.String("l", "", "Listen address (default \"localhost:8443\")")
-	certFile := flag.String("c", "", "Certificate file for HTTPS (required)")
-	keyFile := flag.String("k", "", "Private key file for HTTPS (required)")
+	certFile := flag.String("c", "", "Certificate file for HTTPS")
+	keyFile := flag.String("k", "", "Private key file for HTTPS")
 	strict := flag.Bool("s", false, "Strict mode - blocks requests not coming from Telegram")
 	init := flag.Bool("i", false, "Initialize (create) example bots.yaml file")
 
@@ -63,7 +63,7 @@ func main() {
 
 	if *keyFile == "" {
 		if botsData.Options.Key == "" {
-			fmt.Println("Private key file not specified. Please specify it with the -k flag.")
+			fmt.Println("Private key file not specified. Please specify it with the -k flag or in the bots.yaml file.")
 			os.Exit(1)
 		}
 		*keyFile = botsData.Options.Key
@@ -71,7 +71,7 @@ func main() {
 
 	if *certFile == "" {
 		if botsData.Options.Cert == "" {
-			fmt.Println("Certificate file not specified. Please specify it with the -c flag.")
+			fmt.Println("Certificate file not specified. Please specify it with the -c flag or in the bots.yaml file")
 			os.Exit(1)
 		}
 		*certFile = botsData.Options.Cert
