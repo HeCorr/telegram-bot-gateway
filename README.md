@@ -12,18 +12,30 @@ A simple but fast webhook reverse proxy written in Go that allows you to run mul
 3. Run `go build -o gateway.exe ./src`
 
 ### Running it
-1. Create the `bots.yaml` file in the same folder as the executable (.yml also works):
+1. Generate a config file (`bots.yaml`) by running `./gateway.exe -i`. The file will look like this:
 ```yaml
+config:
+  # Private key file
+  key: bot.key
+  # Certificate file
+  cert: bot.crt
+  # Listen address (ip:port)
+  listen: localhost:8443
+  # Strict mode, ignore requests not coming from Telegram
+  strict: false
+
 bots:
-  - name: Bot One    # the name is optional. if omitted one will be generated.
+    # Bot name for reference (optional)
+  - name: Bot One
+    # Gateway endpoint for receiving updates on
     endpoint: /bot1
-    path: http://localhost:9800/bot
+    # Path that requests will be forwarded to (the bot's webhook URL)
+    path: https://localhost:3000/bot
   - name: Bot Two
     endpoint: /bot2
-    path: http://localhost:9801/bot
+    path: https://localhost:3001/bot
 ```
-2. Run it: 
-`./gateway.exe -c <certFile> -k <keyFile>`
+2. Run it: `./gateway.exe`
 
 ### Available arguments
 ```
@@ -32,21 +44,23 @@ bots:
 -l string
       Listen address (default "localhost:8443")
 -c string
-      Certificate file for HTTPS (required)
+      Certificate file for HTTPS
 -k string
-      Private key file for HTTPS (required)
--s bool
-      Strict mode - blocks requests not coming from Telegram (default false)
+      Private key file for HTTPS
+-i
+      Initialize (create) bots.yaml file
+-s
+      Strict mode - blocks requests not coming from Telegram
 ```
 
-Note: Don't enable Strict mode when running this behind a proxy and try disabling it if you're having issues receiving updates.
+Note: Running this behind a proxy or a NAT with Strict mode is not recommended. Try disabling it if you're having issues receiving updates.
 
 ### TODO
 - [ ] Improve logging
-- [ ] Add comments to the code
-- [ ] Allow specifying options in the `bots.yaml` file
-- [ ] Improve HTTP client (set proper timeouts, ignore certs, etc)
-- [ ] Implement `--init` flag for generating sample `bots.yaml` file
+- [x] Add more comments to the code
+- [x] Allow specifying options in the `bots.yaml` file
+- [x] Improve HTTP client (set proper timeouts, ignore certs, etc)
+- [x] Implement `-i` (init) flag for generating default `bots.yaml` file
 - [ ] Improve non-Telegram IP blocking middleware
 - [ ] Support JSON config files
 - [ ] Auto reload..?
