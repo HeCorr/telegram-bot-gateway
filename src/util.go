@@ -45,21 +45,21 @@ func findBotsFile() string {
 }
 
 // Reads the file f and parses the YAML data into bots
-func readBotsFile(f string) (bots Bots, _ error) {
+func readBotsFile(f string) (conf Config, _ error) {
 	data, err := os.ReadFile(f)
 	if err != nil {
-		return bots, err
+		return conf, err
 	}
-	err = yaml.Unmarshal(data, &bots)
+	err = yaml.Unmarshal(data, &conf)
 	if err != nil {
-		return bots, err
+		return conf, err
 	}
-	for i := 0; i < len(bots.Bots); i++ {
-		if bots.Bots[i].Name == "" {
-			bots.Bots[i].Name = "Bot " + strconv.Itoa(i+1)
+	for i := 0; i < len(conf.Bots); i++ {
+		if conf.Bots[i].Name == "" {
+			conf.Bots[i].Name = "Bot " + strconv.Itoa(i+1)
 		}
 	}
-	return bots, nil
+	return conf, nil
 }
 
 // Creates a pre-configured (example) bots.yaml file

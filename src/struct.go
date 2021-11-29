@@ -6,7 +6,7 @@ type Bot struct {
 	Path     string `yaml:"path"`
 }
 
-type Bots struct {
+type Config struct {
 	Bots []Bot `yaml:"bots"`
 }
 
