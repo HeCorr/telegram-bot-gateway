@@ -67,7 +67,27 @@ func initBotsFile() error {
 	if fileExists("bots.yaml") {
 		return fmt.Errorf("file bots.yaml already exists. please delete it and try again")
 	}
-	return os.WriteFile("bots.yaml", []byte("bots:\n  - name: Bot One\n    endpoint: /bot1\n    path: https://localhost:3000/bot\n  - name: Bot Two\n    endpoint: /bot2\n    path: https://localhost:3001/bot"), os.ModePerm)
+	return os.WriteFile("bots.yaml", []byte(`config:
+  # Private key file
+  key: bot.key
+  # Certificate file
+  cert: bot.crt
+  # Listen address (ip:port)
+  listen: localhost:8443
+  # Strict mode, ignore requests not coming from Telegram
+  strict: false
+
+bots:
+    # Bot name for reference (optional)
+  - name: Bot One
+    # Gateway endpoint for receiving updates on
+    endpoint: /bot1
+    # Path that requests will be forwarded to (the bot's webhook URL)
+    path: https://localhost:3000/bot
+  - name: Bot Two
+    endpoint: /bot2
+    path: https://localhost:3001/bot
+`), os.ModePerm)
 }
 
 // Checks if CIDR contains IP
