@@ -108,7 +108,7 @@ func main() {
 		CustomTimeFormat: "2006-01-02 15:04:05",
 	}))
 
-	if *strict {
+	if *strict || botsData.Options.Strict {
 		fmt.Println("Strict mode enabled!")
 		e.Use(telegramIPMiddleware)
 	}
