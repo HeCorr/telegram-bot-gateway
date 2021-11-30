@@ -1,5 +1,5 @@
 # Telegram Bot Gateway
-A simple but fast webhook reverse proxy written in Go that allows you to run multiple Telegram bots in the same HTTP port.
+A simple but fast webhook reverse proxy written in Go that allows you to host multiple Telegram bots in the same HTTP port.
 
 ## Usage
 
