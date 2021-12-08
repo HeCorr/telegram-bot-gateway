@@ -35,7 +35,8 @@ bots:
     endpoint: /bot2
     path: https://localhost:3001/bot
 ```
-2. Run it: `./gateway.exe`
+2. Modify the file to suit your needs
+3. Run the binary: `./gateway.exe`
 
 ### Available arguments
 ```
@@ -61,6 +62,8 @@ Note: Running this behind a proxy or a NAT with Strict mode is not recommended. 
 - [x] Allow specifying options in the `bots.yaml` file
 - [x] Improve HTTP client (set proper timeouts, ignore certs, etc)
 - [x] Implement `-i` (init) flag for generating default `bots.yaml` file
+- [ ] Use goreleaser to automate the building process
 - [ ] Improve non-Telegram IP blocking middleware
+- [ ] Make the Taskfile actually usable
 - [ ] Support JSON config files
 - [ ] Auto reload..?
