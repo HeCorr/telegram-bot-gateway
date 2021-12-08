@@ -63,7 +63,7 @@ func main() {
 
 	if *keyFile == "" {
 		if botsData.Options.Key == "" {
-			fmt.Println("Private key file not specified. Please specify it with the -k flag or in the bots.yaml file.")
+			fmt.Println("Private key file not specified. Please specify it in the bots.yaml file or use the -k flag.")
 			os.Exit(1)
 		}
 		*keyFile = botsData.Options.Key
@@ -71,7 +71,7 @@ func main() {
 
 	if *certFile == "" {
 		if botsData.Options.Cert == "" {
-			fmt.Println("Certificate file not specified. Please specify it with the -c flag or in the bots.yaml file")
+			fmt.Println("Certificate file not specified. Please specify it in the bots.yaml file or use the -c flag.")
 			os.Exit(1)
 		}
 		*certFile = botsData.Options.Cert
