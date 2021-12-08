@@ -44,7 +44,7 @@ func findBotsFile() string {
 	return ""
 }
 
-// Reads the file f and parses the YAML data into bots
+// Reads the file f and parses the YAML data into conf
 func readBotsFile(f string) (conf Config, _ error) {
 	data, err := os.ReadFile(f)
 	if err != nil {
